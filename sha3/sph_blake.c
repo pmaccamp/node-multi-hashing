@@ -548,10 +548,7 @@ static const sph_u64 CB[16] = {
 		M[0xD] = sph_dec32be_aligned(buf + 52); \
 		M[0xE] = sph_dec32be_aligned(buf + 56); \
 		M[0xF] = sph_dec32be_aligned(buf + 60); \
-	// fix blake (wareck)   
-	//	for (r = 0; r < 8; r ++) \ 
-	// fix blake (wareck)
-			ROUND_S(r); \
+		ROUND_S(r); \
 		H0 ^= S0 ^ V0 ^ V8; \
 		H1 ^= S1 ^ V1 ^ V9; \
 		H2 ^= S2 ^ V2 ^ VA; \
@@ -609,7 +606,7 @@ static const sph_u64 CB[16] = {
 		ROUND_S(5); \
 		ROUND_S(6); \
 		ROUND_S(7); \
-		ROUND_S(8); \ 
+		ROUND_S(8); \
 		ROUND_S(9); \
 		ROUND_S(0); \
 		ROUND_S(1); \
