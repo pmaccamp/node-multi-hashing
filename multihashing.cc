@@ -9,6 +9,9 @@ extern "C" {
     #include "quark.h"
     #include "scryptjane.h"
     #include "scryptn.h"
+    #include "yescrypt/yescrypt.h"
+    #include "yescrypt/sha256_Y.h"
+    #include "neoscrypt.h"
     #include "skein.h"
     #include "x11.h"
     #include "groestl.h"
@@ -19,10 +22,15 @@ extern "C" {
     #include "shavite3.h"
     #include "cryptonight.h"
     #include "x13.h"
+    #include "x14.h"
     #include "nist5.h"
-    #include "sha1.h",
+    #include "sha1.h"
     #include "x15.h"
-	#include "fresh.h"
+    #include "fresh.h"
+    #include "whirlpoolx.h"
+    #include "fresh.h"
+    #include "zr5.h"
+    #include "Lyra2RE.h"
 }
 
 #include "boolberry.h"
@@ -105,6 +113,27 @@ Handle<Value> scrypt(const Arguments& args) {
    return scope.Close(buff->handle_);
 }
 
+Handle<Value> neoscrypt_hash(const Arguments& args) {
+    HandleScope scope;
+
+    if (args.Length() < 2)
+        return except("You must provide two arguments.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    uint32_t input_len = Buffer::Length(target);
+
+    neoscrypt(input, output, 0);
+
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
 
 
 Handle<Value> scryptn(const Arguments& args) {
@@ -168,6 +197,28 @@ Handle<Value> scryptjane(const Arguments& args) {
 
     Buffer* buff = Buffer::New(output, 32);
     return scope.Close(buff->handle_);
+}
+
+Handle<Value> yescrypt(const Arguments& args) {
+   HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+   Local<Object> target = args[0]->ToObject();
+
+   if(!Buffer::HasInstance(target))
+       return except("Argument should be a buffer object.");
+    
+   
+   char * input = Buffer::Data(target);
+   char output[32];
+
+   
+   yescrypt_hash(input, output);
+
+   Buffer* buff = Buffer::New(output, 32);
+   return scope.Close(buff->handle_);
 }
 
 Handle<Value> keccak(const Arguments& args) {
@@ -451,6 +502,28 @@ Handle<Value> x13(const Arguments& args) {
     return scope.Close(buff->handle_);
 }
 
+Handle<Value> x14(const Arguments& args) {
+    HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    uint32_t input_len = Buffer::Length(target);
+
+    x14_hash(input, output, input_len);
+
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
+
 Handle<Value> boolberry(const Arguments& args) {
     HandleScope scope;
 
@@ -572,8 +645,93 @@ Handle<Value> fresh(const Arguments& args) {
 
     Buffer* buff = Buffer::New(output, 32);
     return scope.Close(buff->handle_);
+}	
+	
+Handle<Value> whirlpoolx(const Arguments& args) {
+    HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    uint32_t input_len = Buffer::Length(target);
+
+    whirlpoolx_hash(input, output, input_len);
+
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
 }
 
+Handle<Value> lyra2re(const Arguments& args) {
+   HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    lyra2re_hash(input, output);
+
+   Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
+
+Handle<Value> lyra2re2(const Arguments& args){
+ HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    lyra2re2_hash(input, output);
+
+   Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
+
+
+Handle<Value> zr5(const Arguments& args) {
+    HandleScope scope;
+
+	//printf("ZR5 DEBUG MARKER:\n");
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    unsigned int dSize = Buffer::Length(target);
+
+    zr5_hash((uint8_t *)input, (uint8_t *)output, dSize);
+
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
 void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("quark"), FunctionTemplate::New(quark)->GetFunction());
     exports->Set(String::NewSymbol("x11"), FunctionTemplate::New(x11)->GetFunction());
@@ -592,11 +750,19 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("shavite3"), FunctionTemplate::New(shavite3)->GetFunction());
     exports->Set(String::NewSymbol("cryptonight"), FunctionTemplate::New(cryptonight)->GetFunction());
     exports->Set(String::NewSymbol("x13"), FunctionTemplate::New(x13)->GetFunction());
-    exports->Set(String::NewSymbol("boolberry"), FunctionTemplate::New(boolberry)->GetFunction());
+    exports->Set(String::NewSymbol("x14"), FunctionTemplate::New(x14)->GetFunction());
+	exports->Set(String::NewSymbol("boolberry"), FunctionTemplate::New(boolberry)->GetFunction());
     exports->Set(String::NewSymbol("nist5"), FunctionTemplate::New(nist5)->GetFunction());
     exports->Set(String::NewSymbol("sha1"), FunctionTemplate::New(sha1)->GetFunction());
     exports->Set(String::NewSymbol("x15"), FunctionTemplate::New(x15)->GetFunction());
+    exports->Set(String::NewSymbol("whirlpoolx"), FunctionTemplate::New(whirlpoolx)->GetFunction());
     exports->Set(String::NewSymbol("fresh"), FunctionTemplate::New(fresh)->GetFunction());
+	exports->Set(String::NewSymbol("zr5"), FunctionTemplate::New(zr5)->GetFunction());
+    exports->Set(String::NewSymbol("ziftr"), FunctionTemplate::New(zr5)->GetFunction());
+    exports->Set(String::NewSymbol("neoscrypt"), FunctionTemplate::New(neoscrypt_hash)->GetFunction());
+	exports->Set(String::NewSymbol("yescrypt"), FunctionTemplate::New(yescrypt)->GetFunction());
+	exports->Set(String::NewSymbol("lyra2re"), FunctionTemplate::New(lyra2re)->GetFunction());
+    exports->Set(String::NewSymbol("lyra2re2"), FunctionTemplate::New(lyra2re2)->GetFunction());
 }
 
 NODE_MODULE(multihashing, init)

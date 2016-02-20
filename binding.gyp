@@ -6,6 +6,9 @@
                 "multihashing.cc",
                 "scryptjane.c",
                 "scryptn.c",
+                "yescrypt/sha256_Y.c",
+                "yescrypt/yescrypt-best.c",
+                "yescrypt/yescrypt-common.c",
                 "keccak.c",
                 "skein.c",
                 "x11.c",
@@ -19,11 +22,19 @@
                 "shavite3.c",
                 "cryptonight.c",
                 "x13.c",
+                "x14.c",
                 "boolberry.cc",
                 "nist5.c",
                 "sha1.c",
+                "whirlpoolx.c",
                 "x15.c",
+		        "whirlpoolx.c",
+		        "Lyra2RE.c",
+		        "zr5.c",
                 "fresh.c",
+                "neoscrypt.c",
+				"Lyra2.c",
+		        "Sponge.c",
                 "sha3/sph_hefty1.c",
                 "sha3/sph_fugue.c",
                 "sha3/aes_helper.c",
@@ -53,6 +64,7 @@
             ],
             "include_dirs": [
                 "crypto",
+                "sha3"
             ],
             "cflags_cc": [
                 "-std=c++0x"
