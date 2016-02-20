@@ -751,17 +751,17 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("cryptonight"), FunctionTemplate::New(cryptonight)->GetFunction());
     exports->Set(String::NewSymbol("x13"), FunctionTemplate::New(x13)->GetFunction());
     exports->Set(String::NewSymbol("x14"), FunctionTemplate::New(x14)->GetFunction());
-	exports->Set(String::NewSymbol("boolberry"), FunctionTemplate::New(boolberry)->GetFunction());
+    exports->Set(String::NewSymbol("boolberry"), FunctionTemplate::New(boolberry)->GetFunction());
     exports->Set(String::NewSymbol("nist5"), FunctionTemplate::New(nist5)->GetFunction());
     exports->Set(String::NewSymbol("sha1"), FunctionTemplate::New(sha1)->GetFunction());
     exports->Set(String::NewSymbol("x15"), FunctionTemplate::New(x15)->GetFunction());
     exports->Set(String::NewSymbol("whirlpoolx"), FunctionTemplate::New(whirlpoolx)->GetFunction());
     exports->Set(String::NewSymbol("fresh"), FunctionTemplate::New(fresh)->GetFunction());
-	exports->Set(String::NewSymbol("zr5"), FunctionTemplate::New(zr5)->GetFunction());
+    exports->Set(String::NewSymbol("zr5"), FunctionTemplate::New(zr5)->GetFunction());
     exports->Set(String::NewSymbol("ziftr"), FunctionTemplate::New(zr5)->GetFunction());
     exports->Set(String::NewSymbol("neoscrypt"), FunctionTemplate::New(neoscrypt_hash)->GetFunction());
-	exports->Set(String::NewSymbol("yescrypt"), FunctionTemplate::New(yescrypt)->GetFunction());
-	exports->Set(String::NewSymbol("lyra2re"), FunctionTemplate::New(lyra2re)->GetFunction());
+    exports->Set(String::NewSymbol("yescrypt"), FunctionTemplate::New(yescrypt)->GetFunction());
+    exports->Set(String::NewSymbol("lyra2re"), FunctionTemplate::New(lyra2re)->GetFunction());
     exports->Set(String::NewSymbol("lyra2re2"), FunctionTemplate::New(lyra2re2)->GetFunction());
 }
 
