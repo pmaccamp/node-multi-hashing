@@ -76,7 +76,7 @@
                 "-fPIC -Ofast -flto -fuse-linker-plugin"
             ],
             "cflags_cc": [
-                "-std=c++0x -maes -march=native"
+                "-std=c++0x -maes -msse4.1 -march=native"
             ]
         }
     ]
