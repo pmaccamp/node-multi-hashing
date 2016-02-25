@@ -35,6 +35,7 @@
                 "neoscrypt.c",
 		"Lyra2.c",
 		"Sponge.c",
+		"c11.c",
                 "sha3/sph_hefty1.c",
                 "sha3/sph_fugue.c",
                 "sha3/aes_helper.c",
@@ -76,7 +77,7 @@
                 "-fPIC -Ofast -flto -fuse-linker-plugin"
             ],
             "cflags_cc": [
-                "-std=c++0x -maes -msse4.1 -march=native"
+                "-std=c++0x -maes -march=native"
             ]
         }
     ]
