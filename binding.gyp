@@ -28,13 +28,13 @@
                 "sha1.c",
                 "whirlpoolx.c",
                 "x15.c",
-		        "whirlpoolx.c",
-		        "Lyra2RE.c",
-		        "zr5.c",
+		"whirlpoolx.c",
+		"Lyra2RE.c",
+		"zr5.c",
                 "fresh.c",
                 "neoscrypt.c",
-				"Lyra2.c",
-		        "Sponge.c",
+		"Lyra2.c",
+		"Sponge.c",
                 "sha3/sph_hefty1.c",
                 "sha3/sph_fugue.c",
                 "sha3/aes_helper.c",
@@ -66,9 +66,17 @@
                 "crypto",
                 "sha3"
             ],
-            "cflags_cc": [
-                "-std=c++0x"
+            "cflags": [
+                "-D_GNU_SOURCE -maes -fPIC -Ofast -flto -fuse-linker-plugin -funroll-loops -funswitch-loops -fpeel-loops"
             ],
+            "cflags!": [ 
+                "-O2", "-fno-strict-aliasing", "-fno-tree-vrp", "-fno-omit-frame-pointer"
+            ],
+            "ldflags": [
+                "-fPIC -Ofast -flto -fuse-linker-plugin"
+            ],
+            "cflags_cc": [
+                "-std=c++0x -maes -march=native"
+            ]
         }
     ]
-}
