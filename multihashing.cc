@@ -27,6 +27,7 @@ extern "C" {
     #include "sha1.h"
     #include "x15.h"
     #include "fresh.h"
+    #include "c11.h"
     #include "whirlpoolx.h"
     #include "fresh.h"
     #include "zr5.h"
@@ -732,6 +733,29 @@ Handle<Value> zr5(const Arguments& args) {
     Buffer* buff = Buffer::New(output, 32);
     return scope.Close(buff->handle_);
 }
+
+Handle<Value> c11(const Arguments& args) {
+    HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    uint32_t input_len = Buffer::Length(target);
+
+    c11_hash(input, output);
+
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
+
 void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("quark"), FunctionTemplate::New(quark)->GetFunction());
     exports->Set(String::NewSymbol("x11"), FunctionTemplate::New(x11)->GetFunction());
@@ -763,6 +787,7 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("yescrypt"), FunctionTemplate::New(yescrypt)->GetFunction());
     exports->Set(String::NewSymbol("lyra2re"), FunctionTemplate::New(lyra2re)->GetFunction());
     exports->Set(String::NewSymbol("lyra2re2"), FunctionTemplate::New(lyra2re2)->GetFunction());
+    exports->Set(String::NewSymbol("c11"), FunctionTemplate::New(c11)->GetFunction());
 }
 
 NODE_MODULE(multihashing, init)
