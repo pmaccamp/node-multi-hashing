@@ -71,7 +71,7 @@
                 "sha3"
             ],
             "cflags_cc": [
-                "-std=c++0x"
+                "-std=c++0x -march=native"
             ],
         }
     ]
