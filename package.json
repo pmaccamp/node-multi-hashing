@@ -13,6 +13,9 @@
     "dependencies" : {
         "bindings" : "*"
     },
+       "scripts": {
+    "install": "node-gyp rebuild"
+    },
     "keywords": [
         "scrypt",
         "scryptjane",
