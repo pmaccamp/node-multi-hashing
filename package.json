@@ -1,37 +1,42 @@
 {
-    "name": "multi-hashing",
-    "version": "0.0.9",
-    "main": "multihashing",
-    "author": {
-        "name": "Matthew Little",
-        "email": "zone117x@gmail.com"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/zone117x/node-multi-hashing.git"
-    },
-    "dependencies" : {
-        "bindings" : "*"
-    },
-       "scripts": {
+  "name": "unomp-multi-hashing",
+  "version": "1.0.0",
+  "main": "multihashing",
+  "author": {
+    "name": "zone117x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UNOMP/node-multi-hashing.git"
+  },
+  "dependencies": {
+    "bindings": "*"
+  },
+  "keywords": [
+    "scrypt",
+    "scryptjane",
+    "script-n",
+    "x11",
+    "quark",
+    "keccak_hash",
+    "skein",
+    "bcrypt",
+    "keccak",
+    "blake",
+    "shavite",
+    "fugue",
+    "yescrypt",
+    "sha1",
+    "neoscrypt",
+    "decrypt"
+  ],
+    "scripts": {
     "install": "node-gyp rebuild"
-    },
-    "keywords": [
-        "scrypt",
-        "scryptjane",
-        "script-n",
-        "x11",
-        "quark",
-        "keccak_hash",
-        "skein",
-        "bcrypt",
-        "keccak",
-        "blake",
-        "shavite",
-        "fugue",
- 		"whirlpoolx",
-    	"lyra2re",
-   		"zr5",
-        "sha1"
-    ]
+  },
+  "gypfile": true,
+  "readmeFilename": "README.md",
+  "description": "node-multi-hashing",
+  "bugs": {
+    "url": "https://github.com/UNOMP/node-multi-hashing/issues"
+  }
 }
