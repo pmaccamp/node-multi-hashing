@@ -36,6 +36,7 @@ extern "C" {
     #include "fresh.h"
     #include "zr5.h"
     #include "Lyra2RE.h"
+    #include "lbry.h"
 }
 
 #include "boolberry.h"
