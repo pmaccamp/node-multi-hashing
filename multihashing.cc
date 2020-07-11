@@ -777,6 +777,25 @@ Handle<Value> lyra2re2(const Arguments& args){
     return scope.Close(buff->handle_);
 }
 
+Handle<Value> lbry(const Arguments& args){
+ HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    lbry_hash(input, output);
+
+   Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
 
 Handle<Value> zr5(const Arguments& args) {
     HandleScope scope;
@@ -876,6 +895,7 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("yescrypt"), FunctionTemplate::New(yescrypt)->GetFunction());
     exports->Set(String::NewSymbol("lyra2re"), FunctionTemplate::New(lyra2re)->GetFunction());
     exports->Set(String::NewSymbol("lyra2re2"), FunctionTemplate::New(lyra2re2)->GetFunction());
+    exports->Set(String::NewSymbol("lbry"), FunctionTemplate::New(lbry)->GetFunction());
     exports->Set(String::NewSymbol("c11"), FunctionTemplate::New(c11)->GetFunction());
 	exports->Set(String::NewSymbol("s3"), FunctionTemplate::New(s3)->GetFunction());
 	exports->Set(String::NewSymbol("dcrypt"), FunctionTemplate::New(dcrypt)->GetFunction());
