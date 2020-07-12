@@ -789,11 +789,11 @@ Handle<Value> lbry(const Arguments& args){
         return except("Argument should be a buffer object.");
 
     char * input = Buffer::Data(target);
-    char output[28];
+    char output[32];
 
     lbry_hash(input, output);
 
-   Buffer* buff = Buffer::New(output, 28);
+   Buffer* buff = Buffer::New(output, 32);
     return scope.Close(buff->handle_);
 }
 
