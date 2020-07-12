@@ -53,6 +53,7 @@
                 "sha3/sph_luffa.c",
                 "sha3/sph_ripemd.c",
                 "sha3/sph_sha2.c",
+                "sha3/sph_sha2big.c",
                 "sha3/sph_shavite.c",
                 "sha3/sph_simd.c",
                 "sha3/sph_skein.c",
